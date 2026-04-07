@@ -1,36 +1,31 @@
 $(function () {
-    let formRegister = $("#formRegister");
-    const urlBase = "index.php"
 
-    formRegister.on("submit", function (event) {
-        event.preventDefault();
-        let username = $("#username");
-        let password = $("#password");
+    $("#formRegister").on("submit", function (e) {
+        e.preventDefault();
 
-        if (username.val() === "" || password.val() === "") {
-            alert("Debe completar todos los campos");
-        } else {
-            $.ajax({
-                url: urlBase,
-                type: 'POST',
-                data: $(this).serialize() + '&option=register',
-                dataType: 'json',
-                success: function (response) {
-                    if (response.response === '00') {
-                        window.location.href = 'index.php?page=talleres';
-                    } else {
-                        $('#mensaje').text(response.message).css('color', 'red').show();
-                    }
-                },
-                error: function () {
-                    $('#mensaje').text('Error de conexión').css('color', 'red').show();
+        $.ajax({
+            url: "index.php",
+            type: "POST",
+            data: {
+                option: "register",
+                username: $("#username").val(),
+                password: $("#password").val()
+            },
+            dataType: "json",
+
+            success: function (response) {
+                if (response.response === "00") {
+                    alert("Usuario registrado correctamente");
+                    window.location.href = "index.php?page=login";
+                } else {
+                    alert(response.message);
                 }
-            });
+            },
 
-        }
+            error: function () {
+                alert("Error en el servidor");
+            }
+        });
+    });
 
-
-    })
-
-
-})
+});

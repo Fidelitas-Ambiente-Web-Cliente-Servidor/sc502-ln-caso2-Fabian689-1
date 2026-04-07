@@ -9,12 +9,12 @@ CREATE TABLE usuarios (
 );
 
 -- Insertar admin (password: 12345)
-INSERT INTO usuarios (username, nombre, email, password, rol) VALUES 
-('admin',  '$2y$10$0wkl2VjqQFNw2X5e.f3Lj.fliI7Etwk8r7bNW.OkqtGi31E8M6nRC', 'admin');
+INSERT INTO usuarios (username, password, rol) VALUES
+('admin', '12345', 'admin');
 
 -- Insertar usuario de prueba (password: 12345)
-INSERT INTO usuarios (username, nombre, email, password, rol) VALUES 
-('usuario1',  '$2y$10$0wkl2VjqQFNw2X5e.f3Lj.fliI7Etwk8r7bNW.OkqtGi31E8M6nRC', 'usuario');
+INSERT INTO usuarios (username, password, rol) VALUES
+('usuario1', '12345', 'usuario');
 
 -- Tabla de talleres
 CREATE TABLE talleres (

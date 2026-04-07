@@ -2,26 +2,33 @@
 
 class Database
 {
-
-    private $host = "db";
+    private $host = "localhost";
     private $db = "appdb";
-    private $user = "appuser";
-    private $pass = "apppass";
+    private $user = "root";
+    private $pass = "";
 
     public function connect()
     {
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-        $conn = new mysqli(
-            $this->host,
-            $this->user,
-            $this->pass,
-            $this->db
-        );
+        try {
+            $conn = new mysqli(
+                $this->host,
+                $this->user,
+                $this->pass,
+                $this->db
+            );
 
-        if ($conn->connect_error) {
-            die("Error conexión: " . $conn->connect_error);
+            $conn->set_charset("utf8");
+
+            return $conn;
+        } catch (Exception $e) {
+            die("Error de conexión a la base de datos: " . $e->getMessage());
         }
+        if ($conn->connect_error) {
+    die("Error conexión: " . $conn->connect_error);
+}
 
-        return $conn;
+echo "Conectado correctamente";
     }
 }

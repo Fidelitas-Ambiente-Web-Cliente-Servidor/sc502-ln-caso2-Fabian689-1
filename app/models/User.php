@@ -1,4 +1,5 @@
 <?php
+
 class User
 {
     private $conn;
@@ -14,26 +15,16 @@ class User
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
+
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function create($username, $password)
     {
-        $query = "INSERT INTO usuarios (username, password, rol) VALUES (?, ?, 'usuario')";
+        $query = "INSERT INTO usuarios (username, password) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ss", $username,  $password);
-        $stmt->execute();
-        return $stmt->affected_rows > 0;
-    }
+        $stmt->bind_param("ss", $username, $password);
 
-    public function findById($id)
-    {
-        $query = "SELECT * FROM usuarios WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
+        return $stmt->execute();
     }
 }
